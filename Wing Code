@@ -1,0 +1,256 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9013,        248]
+NotebookOptionsPosition[      8698,        233]
+NotebookOutlinePosition[      9039,        248]
+CellTagsIndexPosition[      8996,        245]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Thin", " ", "Walls", " ", 
+    RowBox[{"Project", " ", "--"}], "  ", "Wing", " ", "Code", " ", "Version",
+     " ", "1.0"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"ClearAll", "[", "\"\<Global*`\>\"", "]"}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBmIQvW6n1H7tja8dZ0z/dxBER/3MXKQDpA/khi8B0df0
+Qu7pAulD5cb3QbTQ+U2OdkA6meWeE4ju8H90HEQzrGo4DaJfVF75AKJvHHsA
+ppWPm/DaA+kldY5ges/sJjEQrTHTUg5E/zFYqAzmt3OpgGi2dYxaIHpnt5MO
+iP6kujMMRK9Z7BoLog1uHysC0dNEBIpBdJ74omoQve3M2noQfXHmjmYQ7f3v
+XzuI3iyVNQlE3+/YMBtEV71wXASir7PGrwDRp2682wiiVV4E7AbRPUcnpzgA
+6TaBxakgWqfcVN4RSC+PvAqmAXTFnyU=
+  "]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7168117797637014`*^9, 3.716811797728297*^9}, 
+   3.7168118371878977`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Aircraft", " ", "Parameters"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"toWeight", " ", "=", " ", "550000"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"take", " ", "off", " ", 
+      RowBox[{"weight", " ", "--"}], " ", "lbs", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"total", " ", "weight"}], ";", " ", 
+        RowBox[{"inclues", " ", "everything"}]}]}]}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"RT", " ", "=", " ", "5390000"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"max", " ", "rudder", " ", 
+       RowBox[{"torque", " ", "--"}], " ", "ft"}], "-", "lbs"}], "*)"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"crVel", " ", "=", " ", "490"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"cruise", " ", 
+      RowBox[{"velocity", " ", "--"}], " ", "knots"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"crAlt", " ", "=", " ", "35000"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"cruise", " ", 
+      RowBox[{"altitude", " ", "--"}], " ", "ft"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"mainGearW", " ", "=", " ", "4320"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"single", " ", "main", " ", "landing", " ", "gear", " ", 
+      RowBox[{"weight", " ", "--"}], " ", "lbs"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"noseGearW", " ", "=", " ", "2160"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"single", " ", "nose", " ", "landing", " ", "gear", " ", 
+      RowBox[{"weight", " ", "--"}], " ", "lbs"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"totalGearW", " ", "=", " ", "10800"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"total", " ", "landing", " ", "gear", " ", 
+      RowBox[{"weight", " ", "--"}], " ", "lbs"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tailW", " ", "=", " ", "8360"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"total", " ", "tail", " ", 
+      RowBox[{"weight", " ", "--"}], " ", "lbs"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Engine", " ", "Parameters"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"engW", " ", "=", " ", "10000"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"engine", " ", 
+      RowBox[{"weight", " ", "--"}], " ", "lbs"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"maxThrust", " ", "=", " ", "90000"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"max", " ", "engine", " ", 
+      RowBox[{"thrust", " ", "--"}], "  ", "lbs"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Wing", " ", "Paramenters"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"wingLUnswept", " ", "=", " ", "117.84"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"unswept", " ", "wing", " ", 
+      RowBox[{"length", " ", "--"}], " ", "ft"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"wingLSwept", " ", "=", " ", "95.8"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"swept", " ", "wing", " ", 
+      RowBox[{"length", " ", "--"}], " ", "ft"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"maxWboxBreadth", " ", "=", " ", 
+     RowBox[{".65", "*", "chord"}]}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"max", " ", "wingbox", " ", 
+      RowBox[{"breadth", " ", "--"}], " ", "percent", " ", "chord"}], "*)"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"maxWboxHeight", " ", "=", " ", 
+     RowBox[{".1", "*", "chord"}]}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"@", " ", "40"}], "%", " ", "chord"}], ",", " ", 
+      RowBox[{"max", " ", "wingbox", " ", 
+       RowBox[{"height", " ", "--"}], " ", "percent", " ", "chord"}]}], 
+     "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"material", " ", "=", " ", "\"\<Aluminum 6061-T6\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"wingArea", " ", "=", " ", "2062.4"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"planform", " ", "area", " ", "of", " ", 
+      RowBox[{"wing", " ", "--"}], " ", 
+      SuperscriptBox["ft", "2"]}], "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"rootChord", " ", "=", " ", "38.94"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"chord", " ", "at", " ", 
+      RowBox[{"root", " ", "--"}], " ", "ft"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"midChord", " ", "=", " ", "24.9"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"chord", " ", "at", " ", "28.7", "%", " ", "wing", " ", 
+      RowBox[{"length", " ", "--"}], " ", "ft"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tipChord", " ", "=", " ", "9.735"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{"chord", " ", "at", " ", "tip", " ", "of", " ", "wing"}], "*)"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Theta]sweep", " ", "=", " ", 
+     RowBox[{"35.61", " ", "Degree"}]}], 
+    RowBox[{"(*", 
+     RowBox[{"sweep", " ", 
+      RowBox[{"angle", " ", "--"}], " ", "CONVERTED", " ", "TO", " ", 
+      "RADIANS"}], "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cL", " ", "=", " ", ".3925"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "overall", " ", "lift", " ", "coefficient", " ", "at", " ", "3", " ", 
+      "degrees", " ", "AOA"}], "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cD", " ", "=", " ", ".0948"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "overall", " ", "drag", " ", "coefficient", " ", "at", " ", "3", " ", 
+      "degrees", " ", "AOA"}], "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cD0", " ", "=", " ", ".008755"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "overall", " ", "zero", " ", "lift", " ", "drag", " ", "coefficient"}], 
+     "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cM", " ", "=", " ", 
+     RowBox[{"-", ".0370"}]}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "overall", " ", "moment", " ", "coefficient", " ", "at", " ", "3", " ", 
+      "degrees", " ", "AOA"}], "*)"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cLmax", " ", "=", " ", "1.1263"}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "overall", " ", "max", " ", "lift", " ", "coefficient", " ", "at", " ", 
+      "11", " ", "degrees", " ", "AOA"}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"negcLmax", " ", "=", " ", 
+     RowBox[{"-", "1.1294"}]}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{
+      "overall", " ", "max", " ", "negative", " ", "lift", " ", "coefficient",
+        " ", "at"}], " ", "-", 
+      RowBox[{"13", " ", "degrees", " ", "AOA"}]}], "*)"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"mChord", " ", "=", " ", 
+     RowBox[{".25", "*", "chord"}]}], " ", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"moment", " ", 
+        RowBox[{"chord", " ", "--"}], " ", "WHAT", " ", "IS", " ", "THIS"}], 
+       "..."}], "?"}], "*)"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7168095184668417`*^9, 3.7168095619426794`*^9}, {
+  3.7168096175954447`*^9, 3.7168099749969316`*^9}, {3.716810019684747*^9, 
+  3.7168106336303225`*^9}, {3.71681067840849*^9, 3.7168109364021497`*^9}, {
+  3.716811551933124*^9, 3.7168115768642607`*^9}, {3.7168117520563726`*^9, 
+  3.71681176761258*^9}}]
+},
+WindowSize->{640, 669},
+WindowMargins->{{Automatic, -8}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 656, 14, 50, "Input"],
+Cell[1217, 36, 122, 2, 30, "Input"],
+Cell[1342, 40, 7352, 191, 639, "Input"]
+}
+]
+*)
+
